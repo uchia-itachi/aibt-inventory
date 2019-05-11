@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Collapsible sidebar using Bootstrap 4</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="/css/style2.css">
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+      #myInput {
+      /* background-image: url('/css/searchicon.png'); */
+      background-position: 10px 10px;
+      background-repeat: no-repeat;
+      width: 30%;
+      float:right;
+      font-size: 16px;
+      padding: 12px 20px 12px 40px;
+      border: 1px solid #ddd;
+      margin-bottom: 12px;
+
+      }
+      .btn:hover {
+        background-color: RoyalBlue;
+      }
+      .reciept{
+        font-size: 12px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+        margin-right:18px;
+
+      }
+      .getsales1{
+        display: none;
+      }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>AIBT IT</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p>INVENTORY</p>
+                <!-- <li class="active">
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">Home 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 2</a>
+                        </li>
+                        <li>
+                            <a href="#">Home 3</a>
+                        </li>
+                    </ul>
+                </li> -->
+                <li class="active">
+                    <a href="#" onclick="funstocks()">Stocks</a>
+                </li>
+                <li>
+                    <a href="#" onclick="funsales()">Sales</a>
+                </li>
+                <li>
+                    <a href="#" onclick="funlogs()">Logs</a>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="/logout" class="download">Log out</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>Action Center</span>
+                    </button>
+
+                </div>
+            </nav>
+            <!-- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item" title="Type in a name"> -->
+
+            <div class="container">
+              <!-- <button class="btn"><i class="fa fa-plus" data-toggle="modal" data-target="#myModal"></i></button> -->
+              <!-- The Modal -->
+              <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                      <h4 class="modal-title">Reciept</h4>
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                      <select class="reciept" onchange="funsetchange(this)" name="action" id="action">
+                        <option value="new">NEW ITEM</option>
+                        <option value="update">UPDATE ITEM</option>
+                        <option value="sold">SOLD</option>
+                      </select>
+                      <input type="text" name="item" placeholder="Item" class="reciept"><input type="text" name="quantity" placeholder="Quantity" class="reciept">
+                      <input type="text" name="cost" value="" placeholder="Cost Price" class="reciept"><input type="text" name="soldprice" value="" placeholder="Selling Price" class="reciept" style="display:none;"><input type="text" name="total" value="" placeholder="Total" class="reciept" disabled>
+                      <input type="text" name="customer" placeholder="Customer" class="reciept" style="display:none;">
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal" id="saveall">Save</button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div id="stocks">
+                <button class="btn"><i class="fa fa-plus" data-toggle="modal" data-target="#myModal"></i></button>
+              <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for item" title="Type in a name">
+              <div class="container">
+                        <table class="table table-hover" id="stockstable">
+                          <thead>
+                            <tr class="table100-head">
+                              <th class="column1">Items</th>
+                              <th class="column2">Quantity</th>
+                              <th class="column3">Price</<th>
+                              <th class="column4">Total</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each result1}}
+                              <tr>
+                                <td class="column1">{{this.Item}}</td>
+                                <td class="column2">{{this.Quantity}}</td>
+                                <td class="column3">{{this.Cost}}</td>
+                                <td class="column4">{{this.TotalCost}}</td>
+                              </tr>
+                              {{/each}}
+                          </tbody>
+                        </table>
+              </div>
+            </div>
+            <div id="logs" style="display:none;">
+              <div class="container">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr class="table100-head">
+                              <th class="column1">Items</th>
+                              <th class="column2">Quantity</th>
+                              <th class="column3">Action</<th>
+                              <th class="column4">Date</th>
+                              <th class="column5">EmployeeID</th>
+                              <th class="column6">CP</th>
+                              <th class="column7">SP</th>
+                              <th class="column8">Customer</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each result2}}
+                              <tr>
+                                <td class="column1">{{this.Item}}</td>
+                                <td class="column2">{{this.Quantity}}</td>
+                                <td class="column3">{{this.Action}}</td>
+                                <td class="column4">{{this.Date}}</td>
+                                <td class="column5">{{this.EmployeeID}}</td>
+                                <td class="column6">{{this.Cost}}</td>
+                                <td class="column7">{{this.Sold}}</td>
+                                <td class="column8">{{this.Customer}}</td>
+                              </tr>
+                              {{/each}}
+                          </tbody>
+                        </table>
+              </div>
+            </div>
+            <div id="sales" style="display:none;">
+              <div class="container">
+                        <table class="table table-hover">
+                          <thead>
+                            <tr class="table100-head">
+                              <th class="column1">Items</th>
+                              <th class="column2">Quantity</th>
+                              <th class="column3">Action</<th>
+                              <th class="column4">Date</th>
+                              <th class="column5">EmployeeID</th>
+                              <th class="column6">CP</th>
+                              <th class="column7">SP</th>
+                              <th class="column8">Customer</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each result2}}{{#if this.Sold}}
+                              <tr>
+                                <td class="column1">{{this.Item}}</td>
+                                <td class="column2">{{this.Quantity}}</td>
+                                <td class="column3">{{this.Action}}</td>
+                                <td class="column4">{{this.Date}}</td>
+                                <td class="column5">{{this.EmployeeID}}</td>
+                                <td class="column6">{{this.Cost}}</td>
+                                <td class="column7">{{this.Sold}}</td>
+                                <td class="column8">{{this.Customer}}</td>
+                              </tr>
+                              {{/if}}{{/each}}
+                          </tbody>
+                        </table>
+              </div>
+            </div>
+            <!-- <h2>Collapsible Sidebar Using Bootstrap 4</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> -->
+
+            <!-- <div class="line"></div> -->
+        </div>
+    </div>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebar").mCustomScrollbar({
+                theme: "minimal"
+            });
+
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $('.collapse.in').toggleClass('in');
+                $('a[aria-expanded=true]').attr('aria-expanded', 'false');
+            })
+        });
+        function myFunction() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("stockstable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+              td = tr[i].getElementsByTagName("td")[0];
+              if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  tr[i].style.display = "";
+                } else {
+                  tr[i].style.display = "none";
+                }
+              }
+            }
+          }
+
+          $('input[name="cost"]').change(function() {
+            $('input[name="total"]').val($(this).val()*$('input[name="quantity"]').val());
+          });
+          $('input[name="quantity"]').change(function() {
+            $('input[name="total"]').val($(this).val()*$('input[name="cost"]').val());
+          });
+          $('input[name="soldprice"]').change(function() {
+            $('input[name="total"]').val($(this).val()*$('input[name="quantity"]').val());
+          });
+
+          $(document).on('click', '#saveall', function() {
+            var item=$('input[name="item"]').val().toUpperCase();
+            var quantity=$('input[name="quantity"]').val();
+            var cost=$('input[name="cost"]').val();
+            var sold=$('input[name="soldprice"]').val();
+            var total=$('input[name="total"]').val();
+            var e = document.getElementById("action");
+            var action = e.options[e.selectedIndex].value;
+            var customer= $('input[name="customer"]').val().toUpperCase();
+            $.ajax({
+                type: "POST",
+                url: "savereciept",
+                data: {item: item, quantity:quantity, cost:cost, sold:sold, total:total, action:action, customer:customer },
+                success: function (msg) {
+                  alert(msg);
+                            // $('.modal-body').find('input:text').val('');
+                            window.location.href = '/home';
+                },
+                error: function (error) {
+                  console.log(error);
+                    alert("error");
+                }
+            });
+          });
+          function funlogs(){
+            document.getElementById("stocks").style.display = "none";
+            document.getElementById("sales").style.display = "none";
+            document.getElementById("logs").style.display = "block";
+          }
+          function funstocks(){
+            document.getElementById("stocks").style.display = "block";
+            document.getElementById("logs").style.display = "none";
+            document.getElementById("sales").style.display = "none";
+          }
+          function funsales(){
+            document.getElementById("stocks").style.display = "none";
+            document.getElementById("logs").style.display = "none";
+            document.getElementById("sales").style.display = "block";
+          }
+          function funsetchange(a){
+            var x = (a.value || a.options[a.selectedIndex].value);  //crossbrowser solution =)
+            if(x=='sold'){
+              $('input[name="soldprice"]').show();
+              $('input[name="cost"]').hide();
+              $('input[name="customer"]').show();
+            }
+            else{
+              $('input[name="soldprice"]').hide();
+                $('input[name="cost"]').show();
+                $('input[name="customer"]').hide();
+            }
+          }
+
+    </script>
+</body>
+</html>

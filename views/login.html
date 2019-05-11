@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <style media="screen">
+    body{
+      background-image: url("/images/bg.jpg");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center center;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+    }
+    #formtitle{
+      display: block;
+      text-align: center;
+      line-height: 150%;
+      font-size: 4em;
+      color: #fffafa;
+    }
+    #loginform{
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .inputs{
+      margin: 10px;
+      height:40px;
+      width:300px;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 10px;
+      text-align: center;
+    }
+    .log{
+      margin: 10px;
+      height:40px;
+      width:300px;
+      border-radius: 10px;
+      text-align: center;
+    }
+  </style>
+  <body>
+    <label id="formtitle">EMPLOYEE LOGIN</label>
+    <div id="loginform">
+      <input type="text" class="inputs" name="" placeholder="Employee id" min="10" max="10" id="ID" required><br>
+      <input type="password" class="inputs" name="" placeholder="password" id="Password" required><br>
+      <button type="button" name="button" class="log">Login</button>
+    </div>
+    <script>
+    $(document).ready(function(){
+      $(".log").click(function(e){
+            e.preventDefault();
+                            var id= $("#ID").val();
+                            var pass=$("#Password").val();
+                            $.ajax({
+                                type: "POST",
+                                url: "login",
+                                data: "id="+id+"&pass="+pass,
+                                success: function (msg) {
+                                  if(msg==0)
+                                    alert('Incorrect Username and/or Password!');
+                                  else {
+                                      window.location.href = '/home';
+                                  }
+                                  },
+                                error: function (error) {
+                                    alert(error);
+                                }
+                            });
+
+            });
+    });
+
+  </script>
+  </body>
+</html>
