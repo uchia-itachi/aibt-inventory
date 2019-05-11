@@ -2,9 +2,9 @@
 This is a work in  progress, so not yet completed.
 Do the following steps to run web app;
   install node.js and mqsql;
-  create a databse in sql with name aibt
+  create a database in sql with name aibt
     synatx: create database aibt;
-  enter into databse;
+  enter into database;
     syntax: use aibt;
    open the folder in cmd and type the following
     syntax: npm install;
