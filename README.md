@@ -14,7 +14,7 @@ Do the following steps to run web app;<br/>
    database:'aibt'<br/>
     });<br/>
     
-   open the folder in cmd and type the following<br/>
+   open the main project folder in cmd and type the following<br/>
     syntax: npm install;<br/>
     syantax: node server.js;<br/>
    now minimize the project and return to mysql and type the following<br/>
